@@ -20,6 +20,7 @@ const CARD = {
   photo:        "assets/photo.jpg",     // drop a square photo in the assets/ folder
   logo:         "assets/logo.png",      // dealership logo — leave "" to hide
   qrCode:       "assets/vCardMikeHochwald.jpg", // QR code image — leave "" to hide
+  bio:          "Award-winning Sales Professional since 2009. With experience spanning luxury brands like BMW and Audi to mainstream favourites like Toyota, Mike brings deep automotive knowledge and a genuine passion for matching people with the right vehicle. Now proud to call St. John's home again, he's here to make your next Toyota experience an exceptional one.",
   phone:        "+17097527764",         // E.164 format — used for Call button and vCard
   sms:          "+17093305907",         // usually the same as phone
   email:        "mhochwald@toyotaplaza.ca",
@@ -80,7 +81,7 @@ const CARD = {
     position:relative; padding:30px 28px 0;
     background:linear-gradient(160deg, var(--accent), #b00816);
     color:#fff;
-    padding-bottom:64px;
+    padding-bottom:90px;
   }
   .hero .dealer{
     font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
@@ -95,8 +96,8 @@ const CARD = {
   .hero .tag{margin-top:14px;font-size:13.5px;line-height:1.5;opacity:.85;max-width:30ch}
 
   .avatar-wrap{
-    position:absolute; bottom:-44px; left:28px;
-    width:96px;height:96px;border-radius:22px;
+    position:absolute; bottom:-54px; left:28px;
+    width:120px;height:120px;border-radius:26px;
     border:4px solid var(--card);
     box-shadow:0 10px 24px -8px rgba(0,0,0,.4);
     overflow:hidden; background:#ddd;
@@ -108,7 +109,8 @@ const CARD = {
     background:linear-gradient(160deg,#fff,#f0ece4);
   }
 
-  .body{padding:64px 24px 26px}
+  .body{padding:76px 24px 26px}
+  .bio{font-size:13.5px;line-height:1.6;color:var(--muted);margin-bottom:18px}
 
   .actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
   .act{
@@ -191,10 +193,10 @@ const CARD = {
       <div class="dealer">${dealerLogo}<span>${c.dealership}</span></div>
       <h1>${c.name}</h1>
       <div class="role">${c.title}</div>
-      <div class="tag">${c.tagline}</div>
       <div class="avatar-wrap">${photo}</div>
     </header>
     <div class="body">
+      ${c.bio ? `<p class="bio">${c.bio}</p>` : ''}
       <div class="actions">
         <a class="act" href="tel:${c.phone}">${ICON.call}Call</a>
         <a class="act" href="sms:${c.sms}">${ICON.sms}Text</a>
