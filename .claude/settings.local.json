@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Users\\\\mhoch\\\\OneDrive\\\\Documents\\\\vCards_Project\\\\ToyotaPlaza\\\\Mike-Hochwald\\\\assets\")"
+    ]
+  }
+}

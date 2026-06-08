@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mike Hochwald — Toyota Plaza</title>
+<meta name="description" content="Connect with Mike Hochwald at Toyota Plaza. Save my contact, text, call, or browse inventory.">
+
+<!-- ============================================================
+     EDIT ONLY THIS BLOCK TO CHANGE THE CARD'S CONTENT.
+     To make a new card: copy the whole folder, rename it
+     (e.g. /ToyotaPlaza/Jane-Smith/), and edit this block only.
+     ============================================================ -->
+<script>
+const CARD = {
+  name:         "Mike Hochwald",
+  title:        "Product Advisor",
+  dealership:   "Toyota Plaza",
+  tagline:      "Helping you find the right Toyota, the easy way.",
+  photo:        "assets/photo.jpg",     // drop a square photo in the assets/ folder
+  logo:         "assets/logo.png",      // dealership logo — leave "" to hide
+  phone:        "+17097527764",         // E.164 format — used for Call button and vCard
+  sms:          "+17093305907",         // usually the same as phone
+  email:        "mhochwald@toyotaplaza.ca",
+  address:      "73 Kenmount Road, St. John’s, NL A1B 3N7",
+  inventoryUrl: "https://www.toyotaplaza.ca/inventory/new/",
+  links: [
+    { label: "View My Inventory", url: "https://www.toyotaplaza.ca/inventory/new/",        icon: "🚗" },
+    { label: "Leave a Review",    url: "https://www.google.com/search?sca_esv=af4572d9dd3a811e&sxsrf=ANbL-n687ijH6vbkN4iPttgXObe3cRBKjA:1780877656244&si=AL3DRZHrmvnFAVQPOO2Bzhf8AX9KZZ6raUI_dT7DG_z0kV2_x02dvkgiCEmJ50taQDbu16NG_vpDELmyAPFoHBFkoYMD9l3lXKZM0nMpdtp8x8NCGuRo6psV-Tp6s7sIZnz1jCjwo0zg&q=Toyota+Plaza+Reviews&sa=X&ved=2ahUKEwiT5NqgrvaUAxXlmIkEHaLdDdAQ0bkNegQILRAH&biw=1920&bih=945&dpr=1#lrd=0x4b0ca37a5568e1ed:0x110ae8baaa5d3bee,3,,,,",     icon: "⭐" },
+    { label: "Instagram",         url: "https://www.instagram.com/ask4mikenl/",            icon: "📸" }
+  ],
+  brand: {
+    accent: "#EB0A1E",   // Toyota red — change to match dealer brand color
+    ink:    "#1a1a1a",
+    paper:  "#f4f1ec"
+  }
+};
+</script>
+<!-- ============================================================
+     STOP EDITING HERE. Everything below is the reusable template.
+     ============================================================ -->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Archivo:wght@400;500;600;700&display=swap');
+
+  :root{
+    --accent:#EB0A1E; --ink:#1a1a1a; --paper:#f4f1ec;
+    --card:#ffffff; --muted:#6b6b6b; --line:rgba(0,0,0,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Archivo',sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(235,10,30,.06), transparent 40%),
+      radial-gradient(circle at 90% 90%, rgba(235,10,30,.05), transparent 45%);
+    min-height:100%;
+    display:flex; align-items:flex-start; justify-content:center;
+    padding:28px 16px 60px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .grain{position:fixed;inset:0;pointer-events:none;opacity:.035;z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  .card{
+    position:relative; z-index:1;
+    width:100%; max-width:420px;
+    background:var(--card);
+    border-radius:26px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.25), 0 2px 8px rgba(0,0,0,.04);
+    overflow:hidden;
+    animation:rise .7s cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+  .hero{
+    position:relative; padding:30px 28px 0;
+    background:linear-gradient(160deg, var(--accent), #b00816);
+    color:#fff;
+    padding-bottom:64px;
+  }
+  .hero .dealer{
+    font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    opacity:.9; display:flex; align-items:center; gap:10px;
+  }
+  .hero .dealer img{height:22px;width:auto;border-radius:4px;background:#fff;padding:2px}
+  .hero h1{
+    font-family:'Fraunces',serif; font-weight:900; font-size:34px;
+    line-height:1.02; margin-top:18px; letter-spacing:-.01em;
+  }
+  .hero .role{margin-top:6px;font-size:15px;font-weight:500;opacity:.92}
+  .hero .tag{margin-top:14px;font-size:13.5px;line-height:1.5;opacity:.85;max-width:30ch}
+
+  .avatar-wrap{
+    position:absolute; bottom:-44px; left:28px;
+    width:96px;height:96px;border-radius:22px;
+    border:4px solid var(--card);
+    box-shadow:0 10px 24px -8px rgba(0,0,0,.4);
+    overflow:hidden; background:#ddd;
+  }
+  .avatar-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+  .avatar-fallback{
+    width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-weight:900;font-size:38px;color:var(--accent);
+    background:linear-gradient(160deg,#fff,#f0ece4);
+  }
+
+  .body{padding:64px 24px 26px}
+
+  .actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+  .act{
+    display:flex;flex-direction:column;align-items:center;gap:7px;
+    padding:14px 6px;border:1px solid var(--line);border-radius:16px;
+    text-decoration:none;color:var(--ink);background:#fff;
+    transition:transform .15s ease, box-shadow .15s ease, border-color .15s;
+    font-size:12.5px;font-weight:600;
+  }
+  .act:hover{transform:translateY(-2px);box-shadow:0 8px 20px -10px rgba(0,0,0,.3);border-color:var(--accent)}
+  .act .ic{width:22px;height:22px;stroke:var(--accent);fill:none;stroke-width:1.9}
+
+  .save{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    width:100%;padding:16px;border:none;border-radius:16px;cursor:pointer;
+    background:var(--ink);color:#fff;font-family:'Archivo';font-size:15px;font-weight:700;
+    margin-bottom:22px;transition:transform .15s, background .2s;
+  }
+  .save:hover{transform:translateY(-2px);background:#000}
+  .save svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2}
+
+  .links{display:flex;flex-direction:column;gap:9px}
+  .row{
+    display:flex;align-items:center;gap:14px;
+    padding:15px 16px;border:1px solid var(--line);border-radius:14px;
+    text-decoration:none;color:var(--ink);background:#fff;
+    transition:transform .15s, border-color .15s, box-shadow .15s;
+    font-weight:600;font-size:14.5px;
+  }
+  .row:hover{transform:translateX(3px);border-color:var(--accent);box-shadow:0 6px 16px -10px rgba(0,0,0,.3)}
+  .row .emoji{font-size:19px;width:24px;text-align:center}
+  .row .arrow{margin-left:auto;opacity:.35;font-size:18px}
+
+  .foot{margin-top:26px;text-align:center;font-size:11.5px;color:var(--muted);line-height:1.6}
+  .foot a{color:var(--accent);text-decoration:none;font-weight:600}
+  .addr{margin-top:4px}
+
+  @media (max-width:380px){.hero h1{font-size:29px}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<main class="card" id="card"></main>
+
+<script>
+(function(){
+  const c = CARD;
+  document.documentElement.style.setProperty('--accent', c.brand.accent);
+  document.documentElement.style.setProperty('--ink',    c.brand.ink);
+  document.documentElement.style.setProperty('--paper',  c.brand.paper);
+
+  const initials = c.name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+
+  const ICON = {
+    call:'<svg class="ic" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.27a2 2 0 0 1 2.11-.45c.74.34 1.53.57 2.34.7A2 2 0 0 1 22 16.92z"/></svg>',
+    sms: '<svg class="ic" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z"/></svg>',
+    mail:'<svg class="ic" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 6-10 7L2 6"/></svg>',
+    save:'<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>'
+  };
+
+  const photo = c.photo
+    ? `<img src="${c.photo}" alt="${c.name}" onerror="this.parentNode.innerHTML='<div class=\\'avatar-fallback\\'>${initials}</div>'">`
+    : `<div class="avatar-fallback">${initials}</div>`;
+
+  const dealerLogo = c.logo
+    ? `<img src="${c.logo}" alt="" onerror="this.style.display='none'">`
+    : '';
+
+  const linkRows = c.links.map(l=>`
+    <a class="row" href="${l.url}" target="_blank" rel="noopener">
+      <span class="emoji">${l.icon||'🔗'}</span><span>${l.label}</span><span class="arrow">›</span>
+    </a>`).join('');
+
+  document.getElementById('card').innerHTML = `
+    <header class="hero">
+      <div class="dealer">${dealerLogo}<span>${c.dealership}</span></div>
+      <h1>${c.name}</h1>
+      <div class="role">${c.title}</div>
+      <div class="tag">${c.tagline}</div>
+      <div class="avatar-wrap">${photo}</div>
+    </header>
+    <div class="body">
+      <div class="actions">
+        <a class="act" href="tel:${c.phone}">${ICON.call}Call</a>
+        <a class="act" href="sms:${c.sms}">${ICON.sms}Text</a>
+        <a class="act" href="mailto:${c.email}">${ICON.mail}Email</a>
+      </div>
+      <button class="save" id="saveBtn">${ICON.save} Save My Contact</button>
+      <div class="links">${linkRows}</div>
+      <div class="foot">
+        <div class="addr">${c.address}</div>
+        <div>Digital card by <a href="/">Digital All Stars</a></div>
+      </div>
+    </div>`;
+
+  document.getElementById('saveBtn').addEventListener('click', function(){
+    const [first, ...rest] = c.name.split(' ');
+    const last = rest.join(' ');
+    const vcf = [
+      'BEGIN:VCARD','VERSION:3.0',
+      `N:${last};${first};;;`,
+      `FN:${c.name}`,
+      `ORG:${c.dealership}`,
+      `TITLE:${c.title}`,
+      `TEL;TYPE=CELL:${c.phone}`,
+      `EMAIL;TYPE=WORK:${c.email}`,
+      `ADR;TYPE=WORK:;;${c.address};;;;`,
+      `URL:${window.location.href}`,
+      'END:VCARD'
+    ].join('\n');
+    const blob = new Blob([vcf], {type:'text/vcard'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `${c.name.replace(/\s+/g,'_')}.vcf`;
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+})();
+</script>
+</body>
+</html>
