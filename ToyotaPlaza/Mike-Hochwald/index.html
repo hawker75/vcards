@@ -143,7 +143,8 @@ const CARD = {
 
   .foot{margin-top:26px;text-align:center;font-size:11.5px;color:var(--muted);line-height:1.6}
   .foot a{color:var(--accent);text-decoration:none;font-weight:600}
-  .addr{margin-top:4px}
+  .addr-link{display:block;margin-top:4px;color:var(--accent);text-decoration:none;font-weight:600}
+  .addr-link:hover{text-decoration:underline}
 
   @media (max-width:380px){.hero h1{font-size:29px}}
 </style>
@@ -198,8 +199,9 @@ const CARD = {
       <button class="save" id="saveBtn">${ICON.save} Save My Contact</button>
       <div class="links">${linkRows}</div>
       <div class="foot">
-        <div class="addr">${c.address}</div>
-        <div>Digital card by <a href="/">Digital All Stars</a></div>
+        <div>Drop in and ask for Mike@</div>
+        <a class="addr-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.address)}" target="_blank" rel="noopener">Toyota Plaza — 73 Kenmount Road, St. John's, NL A1B 3N7</a>
+        <div style="margin-top:8px">Digital card created by Mike Hochwald</div>
       </div>
     </div>`;
 
@@ -212,7 +214,8 @@ const CARD = {
       `FN:${c.name}`,
       `ORG:${c.dealership}`,
       `TITLE:${c.title}`,
-      `TEL;TYPE=CELL:${c.phone}`,
+      `TEL;TYPE=WORK,VOICE:${c.phone}`,
+      `TEL;TYPE=CELL,VOICE:${c.sms}`,
       `EMAIL;TYPE=WORK:${c.email}`,
       `ADR;TYPE=WORK:;;${c.address};;;;`,
       `URL:${window.location.href}`,
