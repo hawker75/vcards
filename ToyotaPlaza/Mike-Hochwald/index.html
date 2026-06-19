@@ -227,7 +227,7 @@ const CARD = {
     <input type="tel" id="refFriendPhone" placeholder="+1 (709) 555-0123" autocomplete="off">
     <label>Friend's Email (for Email)</label>
     <input type="email" id="refFriendEmail" placeholder="friend@example.com" autocomplete="off">
-    <p class="modal-note">📋 Your referral will be logged so Mike can reach out and make sure you get your $100 reward once they visit Toyota Plaza.</p>
+    <p class="modal-note">📋 Your referral will be logged. If your friend purchases a vehicle at Toyota Plaza, Mike will make sure you receive your $100 Parts &amp; Service card.</p>
     <div class="modal-btns">
       <button class="btn-sms" id="btnSms">📱 Send via SMS</button>
       <button class="btn-email" id="btnEmail">✉️ Send via Email</button>
@@ -349,7 +349,7 @@ const CARD = {
       <div class="modal-success">
         <div class="check">✅</div>
         <h2 style="font-family:'Fraunces',serif;margin-bottom:8px">Thank You!</h2>
-        <p>Your referral has been logged. Once your friend visits Toyota Plaza, Mike will make sure you receive your <strong>$100 Parts & Service card</strong>.</p>
+        <p>Your referral has been logged. If your friend purchases a vehicle at Toyota Plaza, Mike will make sure you receive your <strong>$100 Parts & Service card</strong>.</p>
         <button class="btn-cancel" onclick="document.getElementById('referModal').classList.remove('open')" style="margin-top:16px;font-weight:700;color:#1a1a1a">Close</button>
       </div>`;
   }
@@ -376,7 +376,7 @@ const CARD = {
     const subject = encodeURIComponent(`${f.name} would like to introduce you to Mike Hochwald at Toyota Plaza`);
     const body = encodeURIComponent(
       `Hi ${f.friendName},\n\n` +
-      `I hope this message finds you well. My name is ${f.name} and I wanted to introduce you to Mike Hochwald, a Product Advisor at Toyota Plaza in St. John's, NL.\n\n` +
+      `I hope this message finds you well. My name is ${f.name} and I wanted to introduce you to a Product Advisor I trust at Toyota Plaza in St. John's, NL — Mike Hochwald.\n\n` +
       `Mike has been helping people find the right vehicle since 2009, with experience spanning luxury brands like BMW and Audi through to Toyota. I think you'd really enjoy working with him — he's knowledgeable, genuine, and makes the whole process easy.\n\n` +
       `You can view his digital card, save his contact information, and browse inventory here:\n` +
       `https://vcards-sage.vercel.app/ToyotaPlaza/Mike-Hochwald/\n\n` +
