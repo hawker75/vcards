@@ -36,7 +36,8 @@ const CARD = {
     accent: "#EB0A1E",   // Toyota red — change to match dealer brand color
     ink:    "#1a1a1a",
     paper:  "#f4f1ec"
-  }
+  },
+  referScript: "PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE"  // Google Apps Script web app URL for referral logging
 };
 </script>
 <!-- ============================================================
@@ -154,11 +155,86 @@ const CARD = {
   .addr-link:hover{text-decoration:underline}
 
   @media (max-width:380px){.hero h1{font-size:29px}}
+
+  /* ── Refer button ── */
+  .refer{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    width:100%;padding:16px;border:2px solid var(--accent);border-radius:16px;cursor:pointer;
+    background:#fff;color:var(--accent);font-family:'Archivo';font-size:15px;font-weight:700;
+    margin-bottom:9px;transition:transform .15s, background .2s, color .2s;
+  }
+  .refer:hover{transform:translateY(-2px);background:var(--accent);color:#fff}
+  .refer svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;transition:stroke .2s}
+
+  /* ── Modal overlay ── */
+  .modal-bg{
+    display:none;position:fixed;inset:0;z-index:100;
+    background:rgba(0,0,0,.55);backdrop-filter:blur(4px);
+    align-items:center;justify-content:center;padding:16px;
+  }
+  .modal-bg.open{display:flex}
+  .modal{
+    background:#fff;border-radius:22px;padding:28px 24px 24px;
+    width:100%;max-width:400px;box-shadow:0 24px 48px -12px rgba(0,0,0,.4);
+    animation:rise .35s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .modal h2{font-family:'Fraunces',serif;font-size:22px;font-weight:900;margin-bottom:4px}
+  .modal .sub{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.5}
+  .modal label{display:block;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:5px;letter-spacing:.04em;text-transform:uppercase}
+  .modal input{
+    width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;
+    font-family:'Archivo';font-size:14px;color:var(--ink);margin-bottom:14px;
+    outline:none;transition:border-color .15s;
+  }
+  .modal input:focus{border-color:var(--accent)}
+  .modal-note{font-size:12px;color:var(--muted);margin-bottom:20px;line-height:1.5;padding:10px 12px;background:#f9f7f4;border-radius:8px}
+  .modal-btns{display:flex;gap:10px}
+  .btn-sms,.btn-email{
+    flex:1;padding:13px 8px;border:none;border-radius:12px;cursor:pointer;
+    font-family:'Archivo';font-size:13.5px;font-weight:700;
+    transition:transform .15s, opacity .15s;
+  }
+  .btn-sms{background:var(--ink);color:#fff}
+  .btn-email{background:var(--accent);color:#fff}
+  .btn-sms:hover,.btn-email:hover{transform:translateY(-2px);opacity:.9}
+  .btn-cancel{display:block;width:100%;margin-top:12px;padding:10px;border:none;
+    background:none;color:var(--muted);font-family:'Archivo';font-size:13px;cursor:pointer}
+  .modal-success{text-align:center;padding:10px 0}
+  .modal-success .check{font-size:40px;margin-bottom:8px}
+  .modal-success p{font-size:14px;color:var(--muted);line-height:1.6}
 </style>
 </head>
 <body>
 <div class="grain"></div>
 <main class="card" id="card"></main>
+
+<!-- Referral modal -->
+<div class="modal-bg" id="referModal">
+  <div class="modal" id="referModalInner">
+    <h2>Refer a Friend</h2>
+    <p class="sub">Know someone looking for a vehicle? Send them my contact info and earn a <strong>$100 Parts &amp; Service card</strong> at Toyota Plaza.</p>
+    <label>Your Name</label>
+    <input type="text" id="refName" placeholder="Your full name" autocomplete="name">
+    <label>Your Phone</label>
+    <input type="tel" id="refPhone" placeholder="+1 (709) 555-0123" autocomplete="tel">
+    <label>Your Email</label>
+    <input type="email" id="refEmail" placeholder="your@email.com" autocomplete="email">
+    <label>How do you know them?</label>
+    <input type="text" id="refRelationship" placeholder="e.g. Friend, Family, Coworker">
+    <label>Friend's Name</label>
+    <input type="text" id="refFriendName" placeholder="Their full name">
+    <label>Friend's Phone (for SMS)</label>
+    <input type="tel" id="refFriendPhone" placeholder="+1 (709) 555-0123" autocomplete="off">
+    <label>Friend's Email (for Email)</label>
+    <input type="email" id="refFriendEmail" placeholder="friend@example.com" autocomplete="off">
+    <p class="modal-note">📋 Your referral will be logged so Mike can reach out and make sure you get your $100 reward once they visit Toyota Plaza.</p>
+    <div class="modal-btns">
+      <button class="btn-sms" id="btnSms">📱 Send via SMS</button>
+      <button class="btn-email" id="btnEmail">✉️ Send via Email</button>
+    </div>
+    <button class="btn-cancel" id="btnCancel">Cancel</button>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -204,6 +280,7 @@ const CARD = {
         <a class="act" href="mailto:${c.email}">${ICON.mail}Email</a>
       </div>
       <button class="save" id="saveBtn">${ICON.save} Save My Contact</button>
+      <button class="refer" id="referBtn"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Refer a Friend — Earn $100</button>
       <div class="links">${linkRows}</div>
       ${c.qrCode ? `<div class="qr-wrap"><span class="qr-label">Scan to connect</span><img src="${c.qrCode}" alt="QR code"></div>` : ''}
       <div class="foot">
@@ -212,6 +289,105 @@ const CARD = {
       </div>
     </div>`;
 
+  // ── Referral modal ──
+  document.getElementById('referBtn').addEventListener('click', function(){
+    document.getElementById('referModal').classList.add('open');
+  });
+  document.getElementById('btnCancel').addEventListener('click', function(){
+    document.getElementById('referModal').classList.remove('open');
+  });
+  document.getElementById('referModal').addEventListener('click', function(e){
+    if(e.target === this) this.classList.remove('open');
+  });
+
+  function getRefFields(){
+    return {
+      name:         document.getElementById('refName').value.trim(),
+      phone:        document.getElementById('refPhone').value.trim(),
+      email:        document.getElementById('refEmail').value.trim(),
+      relationship: document.getElementById('refRelationship').value.trim(),
+      friendName:   document.getElementById('refFriendName').value.trim(),
+      friendPhone:  document.getElementById('refFriendPhone').value.trim(),
+      friendEmail:  document.getElementById('refFriendEmail').value.trim()
+    };
+  }
+
+  function validateRef(f, needPhone, needEmail){
+    if(!f.name)         { alert('Please enter your name.'); return false; }
+    if(!f.phone)        { alert('Please enter your phone number.'); return false; }
+    if(!f.email)        { alert('Please enter your email address.'); return false; }
+    if(!f.relationship) { alert('Please tell us how you know this person.'); return false; }
+    if(!f.friendName)   { alert("Please enter your friend's name."); return false; }
+    if(needPhone && !f.friendPhone){ alert("Please enter your friend's phone number."); return false; }
+    if(needEmail && !f.friendEmail){ alert("Please enter your friend's email address."); return false; }
+    return true;
+  }
+
+  function logReferral(f, method){
+    const scriptUrl = c.referScript;
+    if(!scriptUrl || scriptUrl.startsWith('PASTE_')) return;
+    fetch(scriptUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        referrerName:         f.name,
+        referrerPhone:        f.phone,
+        referrerEmail:        f.email,
+        referrerRelationship: f.relationship,
+        referredName:         f.friendName,
+        referredPhone:        f.friendPhone,
+        referredEmail:        f.friendEmail,
+        method:               method,
+        timestamp:            new Date().toISOString()
+      })
+    }).catch(()=>{});
+  }
+
+  function showSuccess(){
+    document.getElementById('referModalInner').innerHTML = `
+      <div class="modal-success">
+        <div class="check">✅</div>
+        <h2 style="font-family:'Fraunces',serif;margin-bottom:8px">Thank You!</h2>
+        <p>Your referral has been logged. Once your friend visits Toyota Plaza, Mike will make sure you receive your <strong>$100 Parts & Service card</strong>.</p>
+        <button class="btn-cancel" onclick="document.getElementById('referModal').classList.remove('open')" style="margin-top:16px;font-weight:700;color:#1a1a1a">Close</button>
+      </div>`;
+  }
+
+  document.getElementById('btnSms').addEventListener('click', function(){
+    const f = getRefFields();
+    if(!validateRef(f, true, false)) return;
+    logReferral(f, 'SMS');
+    const msg = encodeURIComponent(
+      `Hi ${f.friendName}, my name is ${f.name} and I wanted to introduce you to Mike Hochwald, a Product Advisor at Toyota Plaza in St. John's, NL.\n\n` +
+      `Mike has been helping people find the right vehicle since 2009 and I think you'd really enjoy working with him. Whether you're looking for a new or pre-owned Toyota, he'll make the experience straightforward and enjoyable.\n\n` +
+      `Check out his digital card here: https://vcards-sage.vercel.app/ToyotaPlaza/Mike-Hochwald/\n\n` +
+      `When you connect with Mike, please mention that ${f.name} referred you. Enjoy the experience!`
+    );
+    const phone = f.friendPhone.replace(/\D/g,'');
+    showSuccess();
+    setTimeout(()=>{ window.open(`sms:+${phone}?body=${msg}`, '_blank'); }, 400);
+  });
+
+  document.getElementById('btnEmail').addEventListener('click', function(){
+    const f = getRefFields();
+    if(!validateRef(f, false, true)) return;
+    logReferral(f, 'Email');
+    const subject = encodeURIComponent(`${f.name} would like to introduce you to Mike Hochwald at Toyota Plaza`);
+    const body = encodeURIComponent(
+      `Hi ${f.friendName},\n\n` +
+      `I hope this message finds you well. My name is ${f.name} and I wanted to introduce you to Mike Hochwald, a Product Advisor at Toyota Plaza in St. John's, NL.\n\n` +
+      `Mike has been helping people find the right vehicle since 2009, with experience spanning luxury brands like BMW and Audi through to Toyota. I think you'd really enjoy working with him — he's knowledgeable, genuine, and makes the whole process easy.\n\n` +
+      `You can view his digital card, save his contact information, and browse inventory here:\n` +
+      `https://vcards-sage.vercel.app/ToyotaPlaza/Mike-Hochwald/\n\n` +
+      `When you reach out to Mike, please mention that ${f.name} referred you.\n\n` +
+      `Best regards,\n${f.name}`
+    );
+    showSuccess();
+    setTimeout(()=>{ window.open(`mailto:${f.friendEmail}?subject=${subject}&body=${body}`, '_blank'); }, 400);
+  });
+
+  // ── Save contact ──
   document.getElementById('saveBtn').addEventListener('click', function(){
     const [first, ...rest] = c.name.split(' ');
     const last = rest.join(' ');
